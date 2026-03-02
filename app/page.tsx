@@ -44,14 +44,14 @@ export default function Page() {
     script.src = "https://api-maps.yandex.ru/2.1/?lang=ru_RU";
     script.async = true;
     script.onload = () => {
-      window.ymaps.ready(() => {
-        const map = new window.ymaps.Map(mapRef.current, {
+      (window as any).ymaps.ready(() => {
+        const map = new (window as any).ymaps.Map(mapRef.current, {
           center: [60.058280, 30.271110],
           zoom: 16,
           controls: ["zoomControl"],
         });
 
-        const placemark = new window.ymaps.Placemark(
+        const placemark = (window as any).ymaps.Placemark(
           [60.058280, 30.271110],
           {
             balloonContent:
