@@ -352,7 +352,7 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
       rel="noopener noreferrer"
       className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
     >
-      <span className="relative z-10">Смотреть все отзывы на Яндекс</span>
+      <span className="relative z-10">Смотреть все отзывы<br /> на Яндекс</span>
       <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
     </a>
   </div>
@@ -460,7 +460,7 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
   {/* Telegram */}
   <button
     onClick={() => window.open("https://t.me/RIVaxOR", "_blank")}
-    className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
+    className="relative flex items-center px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
                bg-cyan-500/20 border border-cyan-400/40
                shadow-lg transition-all duration-300
                hover:scale-105
@@ -474,7 +474,7 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
   {/* Max */}
   <button
     onClick={() => window.open("https://web.max.ru/", "_blank")}
-    className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
+    className="relative flex items-center px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
                bg-cyan-500/20 border border-cyan-400/40
                shadow-lg transition-all duration-300
                hover:scale-105
@@ -487,7 +487,7 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
   {/* WhatsApp */}
   <button
     onClick={() => window.open("https://wa.me/79650527375", "_blank")}
-    className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
+    className="relative flex items-center px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
                bg-cyan-500/20 border border-cyan-400/40
                shadow-lg transition-all duration-300
                hover:scale-105
