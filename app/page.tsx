@@ -36,7 +36,15 @@ const reviews = [
 
 export default function Page() {
   const mapRef = useRef(null);
-  const [activeBuild, setActiveBuild] = useState(null);
+  type Build = {
+  img: string;
+  name: string;
+  desc: string;
+  price: string;
+  modalImg: string;
+};
+
+const [activeBuild, setActiveBuild] = useState<Build | null>(null);
 
   // ЗАГРУЗКА КАРТЫ через скрипт Яндекс.Карт
   useEffect(() => {
