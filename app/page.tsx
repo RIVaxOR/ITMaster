@@ -350,7 +350,15 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
       href="https://uslugi.yandex.ru/search?action=addReview&profile=IgorRakitin-1161268"
       target="_blank"
       rel="noopener noreferrer"
-      className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+      className="relative flex items-center justify-center
+           px-8 py-4 rounded-xl
+           font-semibold text-white
+           text-center
+           overflow-hidden
+           bg-cyan-500/20 border border-cyan-400/40
+           shadow-lg transition-all duration-300
+           hover:scale-105
+           hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
     >
       <span className="relative z-10">Смотреть все отзывы<br /> на Яндекс</span>
       <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
