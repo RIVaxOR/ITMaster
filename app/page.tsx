@@ -48,35 +48,33 @@ const [activeBuild, setActiveBuild] = useState<Build | null>(null);
 
   // ЗАГРУЗКА КАРТЫ через скрипт Яндекс.Карт
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://api-maps.yandex.ru/2.1/?lang=ru_RU";
-    script.async = true;
-    script.onload = () => {
-      (window as any).ymaps.ready(() => {
-        const map = new (window as any).ymaps.Map(mapRef.current, {
-          center: [60.058280, 30.271110],
-          zoom: 16,
-          controls: ["zoomControl"],
-        });
-
-        const placemark = (window as any).ymaps.Placemark(
-          [60.058280, 30.271110],
-          {
-            balloonContent:
-              "Санкт-Петербург, Суздальское шоссе, 28к2, подъезд 1<br>Телефон: +7 965 052-73-75",
-          },
-          {
-            preset: "islands#redIcon",
-            iconColor: "#FF0000",
-            iconSize: [50, 50],
-          }
-        );
-
-        map.geoObjects.add(placemark);
+  const script = document.createElement("script");
+  script.src = "https://api-maps.yandex.ru/2.1/?lang=ru_RU";
+  script.async = true;
+  script.onload = () => {
+    (window as any).ymaps.ready(() => {
+      const map = new (window as any).ymaps.Map(mapRef.current, {
+        center: [60.058280, 30.271110],
+        zoom: 16,
+        controls: ["zoomControl"],
       });
-    };
-    document.body.appendChild(script);
-  }, []);
+
+      const placemark = new (window as any).ymaps.Placemark(
+        [60.058280, 30.271110],
+        {
+          balloonContent:
+            "Санкт-Петербург, Суздальское шоссе, 28к2, подъезд 1<br>Телефон: +7 965 052-73-75",
+        },
+        {
+          preset: "islands#redIcon", // ← тут можно выбрать маркер
+        }
+      );
+
+      map.geoObjects.add(placemark);
+    });
+  };
+  document.body.appendChild(script);
+}, []);
 
   return (
     <div className="min-h-screen bg-[#0b0f14] text-white font-sans">
@@ -303,13 +301,13 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
       {advantages.map((a, i) => {
         const ref = useRef(null);
         const isInView = useInView(ref, { margin: "-100px" });
-        const delay = (advantages.length - 1 - i) * 0.7;
+        const delay = i * 0.3; // задержка по возрастанию индекса
         return (
           <motion.div
             ref={ref}
             key={i}
-            initial={{ opacity: 0, x: 80 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 80 }}
+            initial={{ opacity: 0, x: -80 }} // вылетаем слева
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -80 }}
             transition={isInView ? { duration: 0.5, delay } : { duration: 0.2 }}
             className="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg hover:shadow-cyan-400/50 transition"
           >
