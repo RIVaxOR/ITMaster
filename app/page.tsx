@@ -1,13 +1,21 @@
 "use client"; 
-import { useRef, useEffect,} from "react";
+import { useRef, useEffect, useState} from "react";
 import { motion, useInView } from "framer-motion";
 import HeroImageSlider from "./components/HeroImageSlider"
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import BuildModal from "./components/BuildModal";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const builds = [
   { name: "Бюджетный ПК", price: "до 30 000 ₽", desc: "Для работы и лёгких игр", img: "/images/Eco.png" },
   { name: "Средний ПК", price: "до 100 000 ₽", desc: "Для современных игр и работы", img: "/images/Sred.png" },
   { name: "Премиум ПК", price: "от 100 000 ₽", desc: "Для графики, видео и топ-игр", img: "/images/Prem.png" },
 ];
+
 
 const advantages = [
   "Опыт более 20 лет",
@@ -28,6 +36,7 @@ const reviews = [
 
 export default function Page() {
   const mapRef = useRef(null);
+  const [activeBuild, setActiveBuild] = useState(null);
 
   // ЗАГРУЗКА КАРТЫ через скрипт Яндекс.Карт
   useEffect(() => {
@@ -123,7 +132,7 @@ export default function Page() {
       </header>
 
       {/* КНОПКА НАПИСАТЬ В ТЕЛЕГРАМ, Сборка ПК на заказ */}
-      <section className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 pt-35 pb-0 px-6">
+      <section className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 pt-36 pb-21 px-6">
         <div className="flex-1">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -154,45 +163,90 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
       </section>
 
       {/* ВЫБЕРИТЕ ГОТОВУЮ СБОРКУ */}
-      <section id="catalog" className="max-w-7xl mx-auto pt-24 pb-16 px-6">
-        <div className="max-w-7xl mx-auto backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl py-6 mb-16 shadow-lg">
-          <div className="px-6">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              Выберите готовую сборку
-            </h2>
-          </div>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8">
-          {builds.map((b,i)=>(
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i*0.5 }}
-              className="relative bg-white/10 backdrop-blur-lg rounded-3xl shadow-lg overflow-hidden cursor-pointer group border border-white/20"
-            >
-              <div className="relative h-64 overflow-hidden rounded-t-3xl">
-                <img
-                  src={b.img}
-                  alt={b.name}
-                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105 group-hover:brightness-110"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2 text-cyan-300">{b.name}</h3>
-                <p className="text-gray-300 mb-2">{b.desc}</p>
-                <p className="text-lg font-bold text-white">{b.price}</p>
-                <button className="mt-4 w-full bg-white/20 backdrop-blur-lg hover:bg-cyan-500/30 text-white py-3 rounded-xl font-semibold shadow-lg transition hover:scale-105">
-                  Подробнее
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+<section
+  id="catalog"
+  className="bg-gray-800/50 relative max-w-full pt-21 pb-21 px-6"
+>
+  <div className="max-w-7xl mx-auto">
+    {/* Заголовок */}
+    <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl py-6 mb-16 shadow-lg">
+      <div className="px-6">
+        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          Выберите готовую сборку
+        </h2>
+      </div>
+    </div>
+
+    {/* Слайдер */}
+    <Swiper
+      modules={[Navigation, Pagination]}
+      spaceBetween={24}
+      slidesPerView={3}
+      navigation
+      pagination={{ clickable: true }}
+      breakpoints={{
+        640: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      }}
+    >
+      {[
+        { img: "/images/Eco.png", name: "Бюджет", desc: "Intel Core i3-12100, Intel UHD Graphics 730, DDR4 8GB, SSD 256GB", price: "₽30 000", modalImg: "/images/Eco_large.png" },
+        { img: "/images/Sred.png", name: "Офис", desc: "Intel Core i5 14100, Intel UHD Graphics 730, DDR4 16GB, SSD 512GB", price: "₽50 000", modalImg: "/images/Sred_large.png" },
+        { img: "/images/Prem.png", name: "Дом", desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", price: "₽70 000", modalImg: "/images/Prem_large.png" },
+        { img: "/images/Eco.png", name: "Игры v1.0", desc: "Intel Core i3 14100f, RTX 5050 8GB, DDR4 16GB, SSD 512GB", price: "₽100 000", modalImg: "/images/Eco_large.png" },
+        { img: "/images/Sred.png", name: "Игры v2.0", desc: "Intel Core i3 14100f, RTX 5050 8GB, DDR4 16GB, SSD 512GB", price: "₽130 000", modalImg: "/images/Sred_large.png" },
+        { img: "/images/Prem.png", name: "Игры v3.0", desc: "Intel Core i3 14100f, RTX 5050 8GB, DDR4 16GB, SSD 512GB", price: "₽180 000", modalImg: "/images/Prem_large.png" },
+      ].map((b, i) => (
+        <SwiperSlide key={i}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.2 }}
+            className="relative w-full bg-white/10 backdrop-blur-lg rounded-3xl shadow-lg overflow-hidden cursor-pointer group border border-white/20"
+          >
+            {/* Картинка */}
+            <div className="relative w-full h-64 overflow-hidden rounded-t-3xl">
+              <img
+                src={b.img}
+                alt={b.name}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:brightness-110"
+              />
+            </div>
+
+            {/* Текст */}
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-2 text-cyan-300">{b.name}</h3>
+              <p className="text-gray-300 mb-2">
+                {b.desc.split(", ").map((item, idx) => (
+                  <span key={idx}>
+                    {item}
+                    <br />
+                  </span>
+                ))}
+              </p>
+              <p className="text-lg font-bold text-white">{b.price}</p>
+              
+              {/* Кнопка Подробнее */}
+              <button
+                onClick={() => setActiveBuild(b)}
+                className="mt-4 w-full bg-white/20 backdrop-blur-lg hover:bg-cyan-500/30 text-white py-3 rounded-xl font-semibold shadow-lg transition hover:scale-105"
+              >
+                Подробнее
+              </button>
+            </div>
+          </motion.div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+
+    {/* Модальное окно */}
+    <BuildModal build={activeBuild} onClose={() => setActiveBuild(null)} />
+  </div>
+</section>
 
        {/* УСЛУГИ */}
-<section id="services" className="max-w-7xl mx-auto pt-12 pb-3 px-6">
+<section id="services" className="max-w-7xl mx-auto pt-21 pb-21 px-6">
   <div className="max-w-7xl mx-auto backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl py-6 mb-12 shadow-lg">
     <div className="px-6">
       <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
@@ -225,37 +279,42 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
 </section>
 
       {/* ПОЧЕМУ ВЫБИРАЮТ МЕНЯ */}
-      <section className="max-w-7xl mx-auto pt-10 pb-0 px-6 mb-16">
-        <div className="max-w-7xl mx-auto backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl py-6 mb-16 shadow-lg">
-          <div className="px-6">
-            <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              Почему выбирают меня
-            </h2>
-          </div>
-        </div>
-        <div className="grid md:grid-cols-5 gap-8 text-center">
-          {advantages.map((a, i) => {
-            const ref = useRef(null);
-            const isInView = useInView(ref, { margin: "-100px" });
-            const delay = (advantages.length - 1 - i) * 0.7;
-            return (
-              <motion.div
-                ref={ref}
-                key={i}
-                initial={{ opacity: 0, x: 80 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 80 }}
-                transition={isInView ? { duration: 0.5, delay } : { duration: 0.2 }}
-                className="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg hover:shadow-cyan-400/50 transition"
-              >
-                <p className="font-semibold text-white">{a}</p>
-              </motion.div>
-            );
-          })}
-        </div>
-      </section>
+<section
+  className="bg-gray-800/50 relative max-w-full pt-21 pb-21 px-6 mb-16"
+>
+  <div className="max-w-7xl mx-auto">
+    <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl py-6 mb-16 shadow-lg">
+      <div className="px-6">
+        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          Почему выбирают меня
+        </h2>
+      </div>
+    </div>
+
+    <div className="grid md:grid-cols-5 gap-8 text-center">
+      {advantages.map((a, i) => {
+        const ref = useRef(null);
+        const isInView = useInView(ref, { margin: "-100px" });
+        const delay = (advantages.length - 1 - i) * 0.7;
+        return (
+          <motion.div
+            ref={ref}
+            key={i}
+            initial={{ opacity: 0, x: 80 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 80 }}
+            transition={isInView ? { duration: 0.5, delay } : { duration: 0.2 }}
+            className="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-lg hover:shadow-cyan-400/50 transition"
+          >
+            <p className="font-semibold text-white">{a}</p>
+          </motion.div>
+        );
+      })}
+    </div>
+  </div>
+</section>
 
       {/* ОТЗЫВЫ */}
-      <section className="max-w-7xl mx-auto pt-0 pb-0 px-6">
+      <section className="max-w-7xl mx-auto pt-5 pb-21 px-6 ">
         <div className="max-w-7xl mx-auto backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl py-6 mb-16 shadow-lg">
           <div className="px-6">
             <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
@@ -278,78 +337,187 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
             </motion.div>
           ))}
         </div>
+        <div className="mt-6 flex justify-center">
+    <a
+      href="https://uslugi.yandex.ru/search?action=addReview&profile=IgorRakitin-1161268"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+    >
+      <span className="relative z-10">Смотреть все отзывы на Яндекс</span>
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
+    </a>
+  </div>
       </section>
-      <div className="text-center mt-8">
-  <a
-    href="https://uslugi.yandex.ru/search?action=addReview&profile=IgorRakitin-1161268"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block px-8 py-2 rounded-xl font-semibold text-white
-      bg-gradient-to-r from-cyan-500 to-purple-500
-      shadow-lg transition-all duration-300
-      hover:scale-105
-      hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
-  >
-    Смотреть все отзывы на Яндекс
-  </a>
-</div>
 
       {/* СЕТАПЫ КЛИЕНТОВ */}
-      <section className="max-w-7xl mx-auto pt-7 pb-10 px-6" id="client-setups">
-        <div className="max-w-7xl mx-auto backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl py-6 mb-16 shadow-lg">
-    <div className="px-6">
-      <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-        Сетапы клиентов
-      </h2>
-    </div>
-  </div>
-  <div className="grid grid-cols-4 gap-4 auto-rows-auto">
-  {[
-    { img: "/images/Ver 1.jpg", type: "square" },
-    { img: "/images/Gor 1.jpg", type: "vertical" },
-    { img: "/images/setup3.jpg", type: "horizontal" },
-    { img: "/images/setup4.jpg", type: "square" },
-    { img: "/images/setup5.jpg", type: "vertical" },
-    { img: "/images/Ver 1.jpg", type: "square" },
-    { img: "/images/setup6.jpg", type: "horizontal" },
-    { img: "/images/Ver 1.jpg", type: "square" },
-    { img: "/images/setup6.jpg", type: "horizontal" },
-    { img: "/images/Ver 1.jpg", type: "square" },
-    { img: "/images/Ver 1.jpg", type: "square" }
-  ].map((item, i) => {
-    let classNames = "group relative overflow-hidden rounded-2xl border border-cyan-500/20 hover:border-cyan-400 transition duration-300 shadow-lg";
-
-    // Определяем размер по типу
-    if (item.type === "square") classNames += " col-span-1 row-span-1"; // квадратная
-    if (item.type === "vertical") classNames += " col-span-1 row-span-2"; // вертикальная
-    if (item.type === "horizontal") classNames += " col-span-2 row-span-1"; // горизонтальная
-
-    return (
-      <div key={i} className={classNames} style={{ aspectRatio: item.type === "square" ? "1/1" : item.type === "vertical" ? "1/2" : "2/1" }}>
-        <img
-          src={item.img}
-          alt={`Сетап клиента ${i + 1}`}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+<section
+  id="client-setups"
+  className="bg-gray-800/50 relative max-w-full pt-21 pb-21 px-6"
+>
+  <div className="max-w-7xl mx-auto">
+    <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl py-6 mb-16 shadow-lg">
+      <div className="px-6">
+        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          Сетапы клиентов
+        </h2>
       </div>
-    );
-  })}
-</div>
+    </div>
+
+    <Swiper
+  modules={[Navigation, Pagination]}
+  navigation
+  pagination={{ clickable: true }}
+  spaceBetween={30}
+>
+  {/* ====== СЛАЙД 1 ====== */}
+<SwiperSlide>
+  <div className="grid grid-cols-4 gap-1 auto-flow-dense">
+    {[
+      { img: "/images/Sq 1.jpg", type: "square" },
+      { img: "/images/Ver 1.jpg", type: "vertical" },
+      { img: "/images/Gor 1.jpg", type: "horizontal" },
+      { img: "/images/Sq 2.jpg", type: "square" },
+      { img: "/images/Sq 3.jpg", type: "square" },
+      { img: "/images/Sq 4.jpg", type: "square" },
+    ].map((item, i) => {
+      let classNames =
+        "group relative overflow-hidden rounded-2xl border border-cyan-500/20 hover:border-cyan-400 transition duration-300 shadow-lg";
+
+      // фиксированные пропорции
+      if (item.type === "square") classNames += " col-span-1 row-span-1 aspect-square";
+      if (item.type === "vertical") classNames += " col-span-1 row-span-2 aspect-[1/2]";
+      if (item.type === "horizontal") classNames += " col-span-2 row-span-1 aspect-[2/1]";
+
+      return (
+        <div key={i} className={classNames}>
+          <img
+            src={item.img}
+            alt={`Сетап клиента ${i + 1}`}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+      );
+    })}
+  </div>
+</SwiperSlide>
+  {/* ====== СЛАЙД 2 ====== */}
+  <SwiperSlide>
+  <div className="grid grid-cols-4 gap-1 auto-flow-dense">
+    {[
+      { img: "/images/Sq 1.jpg", type: "square" },
+      { img: "/images/Ver 1.jpg", type: "vertical" },
+      { img: "/images/Gor 1.jpg", type: "horizontal" },
+      { img: "/images/Sq 2.jpg", type: "square" },
+      { img: "/images/Sq 3.jpg", type: "square" },
+      { img: "/images/Sq 4.jpg", type: "square" },
+    ].map((item, i) => {
+      let classNames =
+        "group relative overflow-hidden rounded-2xl border border-cyan-500/20 hover:border-cyan-400 transition duration-300 shadow-lg";
+
+      // фиксированные пропорции
+      if (item.type === "square") classNames += " col-span-1 row-span-1 aspect-square";
+      if (item.type === "vertical") classNames += " col-span-1 row-span-2 aspect-[1/2]";
+      if (item.type === "horizontal") classNames += " col-span-2 row-span-1 aspect-[2/1]";
+
+      return (
+        <div key={i} className={classNames}>
+          <img
+            src={item.img}
+            alt={`Сетап клиента ${i + 1}`}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+      );
+    })}
+  </div>
+</SwiperSlide>
+{/* ====== СЛАЙД 2 ====== */}
+
+</Swiper>
+  </div>
 </section>
 
       {/* ГОТОВ ОБСУДИТЬ СБОРКУ */}
-      <section className="max-w-3xl mx-auto text-center py-24 px-6">
+      <section className="max-w-3xl mx-auto text-center pt-21 pb-21 px-6">
         <h2 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
           Готов обсудить сборку
         </h2>
         <p className="text-gray-300 mb-10">
-          Напишите бюджет и задачи — ответим максимально быстро.
+          Напишите бюджет и задачи — отвечу максимально быстро.
         </p>
         <a href="https://t.me/your_username" target="_blank" rel="noopener noreferrer">
-          <button className="bg-white/20 backdrop-blur-lg hover:bg-cyan-500/30 text-white px-10 py-6 rounded-xl font-semibold shadow-lg transition hover:scale-105">
-            Связаться через Telegram
-          </button>
-        </a>
+          <div className="flex justify-center items-center gap-4">
+
+  {/* Telegram */}
+  <button
+    onClick={() => window.open("https://t.me/RIVaxOR", "_blank")}
+    className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
+               bg-cyan-500/20 border border-cyan-400/40
+               shadow-lg transition-all duration-300
+               hover:scale-105
+               hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+  >
+    
+    <span className="relative z-10">Telegram</span>
+    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
+  </button>
+
+  {/* Max */}
+  <button
+    onClick={() => window.open("https://web.max.ru/", "_blank")}
+    className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
+               bg-cyan-500/20 border border-cyan-400/40
+               shadow-lg transition-all duration-300
+               hover:scale-105
+               hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+  >
+    <span className="relative z-10">Max</span>
+    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
+  </button>
+
+  {/* WhatsApp */}
+  <button
+    onClick={() => window.open("https://wa.me/79650527375", "_blank")}
+    className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
+               bg-cyan-500/20 border border-cyan-400/40
+               shadow-lg transition-all duration-300
+               hover:scale-105
+               hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+  >
+    <span className="relative z-10">WhatsApp</span>
+    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
+  </button>
+</div>
+<div className="flex justify-center items-center gap-4 mt-6">
+
+  {/* Avito */}
+  <button
+    onClick={() => window.open("https://www.avito.ru/brands/i34771128", "_blank")}
+    className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
+               bg-cyan-500/20 border border-cyan-400/40
+               shadow-lg transition-all duration-300
+               hover:scale-105
+               hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+  >
+    <span className="relative z-10">Avito</span>
+    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300 rounded-xl"></div>
+  </button>
+
+  {/* Яндекс.Услуги */}
+  <button
+    onClick={() => window.open("https://uslugi.yandex.ru/search?action=addReview&profile=IgorRakitin-1161268", "_blank")}
+    className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
+               bg-cyan-500/20 border border-cyan-400/40
+               shadow-lg transition-all duration-300
+               hover:scale-105
+               hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+  >
+    <span className="relative z-10">Яндекс.Услуги</span>
+    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300 rounded-xl"></div>
+  </button>
+</div>
+            </a>
       </section>
 
       {/* МЕСТОПОЛОЖЕНИЕ с Яндекс.Картой */}
@@ -361,6 +529,9 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
           ref={mapRef}
           className="w-full h-96 rounded-2xl overflow-hidden shadow-lg border border-white/20"
         />
+        <p className="mt-4 text-center text-lg font-medium text-white/90">
+    г. Санк-Петербург, Суздальское шоссе 28к2
+  </p>
       </section>
 
     </div>
