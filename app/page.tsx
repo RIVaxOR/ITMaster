@@ -414,86 +414,70 @@ export default function Page() {
 </section>
 
       {/* ГОТОВ ОБСУДИТЬ СБОРКУ */}
-      <section className="max-w-3xl mx-auto text-center pt-21 pb-21 px-6">
-        <h2 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-          Готов обсудить сборку
-        </h2>
-        <p className="text-gray-300 mb-10">
-          Напишите бюджет и задачи — отвечу максимально быстро.
-        </p>
-        <a href="https://t.me/your_username" target="_blank" rel="noopener noreferrer">
-          <div className="flex justify-center items-center gap-4">
+<section className="max-w-3xl mx-auto text-center pt-21 pb-21 px-6">
+  <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+    Готов обсудить сборку
+  </h2>
+  <p className="text-gray-300 mb-10">
+    Напишите бюджет и задачи — отвечу максимально быстро.
+  </p>
 
-  {/* Telegram */}
-  <button
-    onClick={() => window.open("https://t.me/RIVaxOR", "_blank")}
-    className="relative flex items-center px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
-               bg-cyan-500/20 border border-cyan-400/40
-               shadow-lg transition-all duration-300
-               hover:scale-105
-               hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
-  >
-    
-    <span className="relative z-10">Telegram</span>
-    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
-  </button>
+  {/* Первая строка: Telegram, Max, WhatsApp */}
+  <div className="flex flex-wrap justify-center items-center gap-4">
+    <button
+      onClick={() => window.open("https://t.me/RIVaxOR", "_blank")}
+      className="relative flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-white overflow-hidden
+                 bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
+                 hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+    >
+      <span className="relative z-10">Telegram</span>
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
+    </button>
 
-  {/* Max */}
-  <button
-    onClick={() => window.open("https://web.max.ru/", "_blank")}
-    className="relative flex items-center px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
-               bg-cyan-500/20 border border-cyan-400/40
-               shadow-lg transition-all duration-300
-               hover:scale-105
-               hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
-  >
-    <span className="relative z-10">Max</span>
-    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
-  </button>
+    <button
+      onClick={() => window.open("https://web.max.ru/", "_blank")}
+      className="relative flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-white overflow-hidden
+                 bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
+                 hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+    >
+      <span className="relative z-10">Max</span>
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
+    </button>
 
-  {/* WhatsApp */}
-  <button
-    onClick={() => window.open("https://wa.me/79650527375", "_blank")}
-    className="relative flex items-center px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
-               bg-cyan-500/20 border border-cyan-400/40
-               shadow-lg transition-all duration-300
-               hover:scale-105
-               hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
-  >
-    <span className="relative z-10">WhatsApp</span>
-    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
-  </button>
-</div>
-<div className="flex justify-center items-center gap-4 mt-6">
+    <button
+      onClick={() => window.open("https://wa.me/79650527375", "_blank")}
+      className="relative flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-white overflow-hidden
+                 bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
+                 hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+    >
+      <span className="relative z-10">WhatsApp</span>
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
+    </button>
+  </div>
 
-  {/* Avito */}
-  <button
-    onClick={() => window.open("https://www.avito.ru/brands/i34771128", "_blank")}
-    className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
-               bg-cyan-500/20 border border-cyan-400/40
-               shadow-lg transition-all duration-300
-               hover:scale-105
-               hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
-  >
-    <span className="relative z-10">Avito</span>
-    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300 rounded-xl"></div>
-  </button>
+  {/* Вторая строка: Avito, Яндекс.Услуги */}
+  <div className="flex flex-wrap justify-center gap-4 mt-4">
+    <button
+      onClick={() => window.open("https://www.avito.ru/brands/i34771128", "_blank")}
+      className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
+                 bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
+                 hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+    >
+      <span className="relative z-10">Avito</span>
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300 rounded-xl"></div>
+    </button>
 
-  {/* Яндекс.Услуги */}
-  <button
-    onClick={() => window.open("https://uslugi.yandex.ru/search?action=addReview&profile=IgorRakitin-1161268", "_blank")}
-    className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
-               bg-cyan-500/20 border border-cyan-400/40
-               shadow-lg transition-all duration-300
-               hover:scale-105
-               hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
-  >
-    <span className="relative z-10">Яндекс.Услуги</span>
-    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300 rounded-xl"></div>
-  </button>
-</div>
-            </a>
-      </section>
+    <button
+      onClick={() => window.open("https://uslugi.yandex.ru/search?action=addReview&profile=IgorRakitin-1161268", "_blank")}
+      className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
+                 bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
+                 hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+    >
+      <span className="relative z-10">Яндекс.Услуги</span>
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300 rounded-xl"></div>
+    </button>
+  </div>
+</section>
 
       {/* МЕСТОПОЛОЖЕНИЕ с Яндекс.Картой */}
       <section id="maps" className="max-w-7xl mx-auto pt-0 pb-25 px-6 relative">
