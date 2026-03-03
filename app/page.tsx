@@ -1,7 +1,7 @@
-"use client"; 
-import { useRef, useEffect, useState} from "react";
+"use client";
+import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import HeroImageSlider from "./components/HeroImageSlider"
+import HeroImageSlider from "./components/HeroImageSlider";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import BuildModal from "./components/BuildModal";
@@ -9,13 +9,6 @@ import BuildModal from "./components/BuildModal";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
-const builds = [
-  { name: "Бюджетный ПК", price: "до 30 000 ₽", desc: "Для работы и лёгких игр", img: "/images/Eco.png" },
-  { name: "Средний ПК", price: "до 100 000 ₽", desc: "Для современных игр и работы", img: "/images/Sred.png" },
-  { name: "Премиум ПК", price: "от 100 000 ₽", desc: "Для графики, видео и топ-игр", img: "/images/Prem.png" },
-];
-
 
 const advantages = [
   "Опыт более 20 лет",
@@ -35,130 +28,101 @@ const reviews = [
 ];
 
 export default function Page() {
-  const mapRef = useRef(null);
+  const mapRef = useRef<HTMLDivElement>(null);
+
   type Build = {
-  img: string;
-  name: string;
-  desc: string;
-  price: string;
-  modalImg: string;
-};
-
-const [activeBuild, setActiveBuild] = useState<Build | null>(null);
-
-  // ЗАГРУЗКА КАРТЫ через скрипт Яндекс.Карт
-  useEffect(() => {
-  const script = document.createElement("script");
-  script.src = "https://api-maps.yandex.ru/2.1/?lang=ru_RU";
-  script.async = true;
-  script.onload = () => {
-    (window as any).ymaps.ready(() => {
-      const map = new (window as any).ymaps.Map(mapRef.current, {
-        center: [60.058280, 30.271110],
-        zoom: 16,
-        controls: ["zoomControl"],
-      });
-
-      const placemark = new (window as any).ymaps.Placemark(
-        [60.058280, 30.271110],
-        {
-          balloonContent:
-            "Санкт-Петербург, Суздальское шоссе, 28к2, подъезд 1<br>Телефон: +7 965 052-73-75",
-        },
-        {
-          preset: "islands#redIcon", // ← тут можно выбрать маркер
-        }
-      );
-
-      map.geoObjects.add(placemark);
-    });
+    img: string;
+    name: string;
+    desc: string;
+    price: string;
+    modalImg?: string;
   };
-  document.body.appendChild(script);
-}, []);
+
+  const [activeBuild, setActiveBuild] = useState<Build | null>(null);
+
+  const builds: Build[] = [
+    { img: "/images/Eco.png", name: "Бюджет", desc: "Intel Core i3-12100, Intel UHD Graphics 730, DDR4 8GB, SSD 256GB", price: "₽30 000", modalImg: "/images/Eco_large.png" },
+    { img: "/images/Sred.png", name: "Офис", desc: "Intel Core i5 14100, Intel UHD Graphics 730, DDR4 16GB, SSD 512GB", price: "₽50 000", modalImg: "/images/Sred_large.png" },
+    { img: "/images/Prem.png", name: "Дом", desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", price: "₽70 000", modalImg: "/images/Prem_large.png" },
+  ];
+
+  // ЗАГРУЗКА Яндекс.Карты
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://api-maps.yandex.ru/2.1/?lang=ru_RU";
+    script.async = true;
+    script.onload = () => {
+      (window as any).ymaps.ready(() => {
+        const map = new (window as any).ymaps.Map(mapRef.current, {
+          center: [60.058280, 30.271110],
+          zoom: 16,
+          controls: ["zoomControl"],
+        });
+
+        const placemark = new (window as any).ymaps.Placemark(
+          [60.058280, 30.271110],
+          {
+            balloonContent:
+              "Санкт-Петербург, Суздальское шоссе, 28к2, подъезд 1<br>Телефон: +7 965 052-73-75",
+          },
+          {
+            preset: "islands#redIcon",
+          }
+        );
+
+        map.geoObjects.add(placemark);
+      });
+    };
+    document.body.appendChild(script);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#0b0f14] text-white font-sans">
 
-      {/* ВЕРХНЯЯ ПОЛОСА с ITMaster */}
+      {/* HEADER */}
       <header className="fixed w-full z-50 backdrop-blur-md bg-white/10 shadow-lg">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
           <div className="text-2xl font-bold">
-  <a
-    href="https://t.me/RIVaxOR"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-cyan-300 transition-all duration-300 hover:text-white hover:drop-shadow-[0_0_20px_rgba(0,255,255,0.8)]"
-  >
-    ITMaster
-  </a>
-</div>
+            <a href="https://t.me/RIVaxOR" target="_blank" rel="noopener noreferrer" className="text-cyan-300 transition-all duration-300 hover:text-white hover:drop-shadow-[0_0_20px_rgba(0,255,255,0.8)]">
+              ITMaster
+            </a>
+          </div>
           <nav className="space-x-6">
-  {[
-  { name: "Главная", link: "#" },
-  { name: "Сборка", link: "#catalog" },
-  { name: "Услуги", link: "#services" },
-  { name: "Отзывы", link: "#clients" },
-  { name: "Компания", link: "#company" }
-].map((item, i) => (
-  <a
-    key={i}
-    href={item.link}
-    className="relative text-white transition duration-300
-      hover:text-cyan-400
-      hover:drop-shadow-[0_0_8px_rgba(0,255,255,0.8)]
-      after:absolute after:left-0 after:-bottom-1
-      after:w-0 after:h-[2px]
-      after:bg-cyan-400
-      after:transition-all after:duration-300
-      hover:after:w-full"
-    onClick={(e) => {
-      e.preventDefault(); // отключаем стандартное поведение ссылки
-
-      if (item.name === "Главная") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-
-      if (item.name === "Услуги") {
-        const section = document.getElementById("services");
-        if (section) {
-          section.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-      if (item.name === "Сборка") {
-      const section = document.getElementById("catalog");
-      if (section) section.scrollIntoView({ behavior: "smooth" });
-      }
-    }}
-  >
-    {item.name}
-  </a>
-))}
-</nav>
+            {["Главная", "Сборка", "Услуги", "Отзывы", "Компания"].map((name, i) => (
+              <a key={i} href={`#${name.toLowerCase()}`} className="relative text-white transition duration-300 hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,255,255,0.8)]
+                after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-full"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (name === "Главная") window.scrollTo({ top: 0, behavior: "smooth" });
+                  else {
+                    const section = document.getElementById(name.toLowerCase());
+                    section?.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+              >
+                {name}
+              </a>
+            ))}
+          </nav>
         </div>
       </header>
 
-      {/* КНОПКА НАПИСАТЬ В ТЕЛЕГРАМ, Сборка ПК на заказ */}
+      {/* HERO */}
       <section className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 pt-36 pb-21 px-6">
         <div className="flex-1">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-extrabold mb-4 text-white"
-          >
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-6xl font-extrabold mb-4 text-white">
             Сборка ПК<br /> на заказ
           </motion.h1>
           <p className="text-gray-300 text-lg mb-6">
             Сборки для любых задач — от работы до топовых игр. Аккуратный кабель-менеджмент, стресс-тесты и гарантия качества.
           </p>
           <a href="https://t.me/RIVaxOR" target="_blank" rel="noopener noreferrer">
-           <button className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
-bg-cyan-500/20 border border-cyan-400/40
-shadow-lg transition-all duration-300
-hover:scale-105
-hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
-             <span className="relative z-10">Написать в Telegram</span>
-             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
-           </button>
+            <button className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
+              bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
+              hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
+              <span className="relative z-10">Написать в Telegram</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
+            </button>
           </a>
         </div>
         <div className="flex-1">
@@ -168,88 +132,55 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
         </div>
       </section>
 
-      {/* ВЫБЕРИТЕ ГОТОВУЮ СБОРКУ */}
-<section
-  id="catalog"
-  className="bg-gray-800/50 relative max-w-full pt-21 pb-21 px-6"
->
-  <div className="max-w-7xl mx-auto">
-    {/* Заголовок */}
-    <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl py-6 mb-16 shadow-lg">
-      <div className="px-6">
-        <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-          Выберите готовую сборку
-        </h2>
-      </div>
-    </div>
+      {/* CATALOG */}
+      <section id="catalog" className="bg-gray-800/50 relative max-w-full pt-21 pb-21 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl py-6 mb-16 shadow-lg">
+            <div className="px-6">
+              <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                Выберите готовую сборку
+              </h2>
+            </div>
+          </div>
 
-    {/* Слайдер */}
-    <Swiper
-      modules={[Navigation, Pagination]}
-      spaceBetween={24}
-      slidesPerView={3}
-      navigation
-      pagination={{ clickable: true }}
-      breakpoints={{
-        640: { slidesPerView: 1 },
-        768: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 },
-      }}
-    >
-      {[
-        { img: "/images/Eco.png", name: "Бюджет", desc: "Intel Core i3-12100, Intel UHD Graphics 730, DDR4 8GB, SSD 256GB", price: "₽30 000", modalImg: "/images/Eco_large.png" },
-        { img: "/images/Sred.png", name: "Офис", desc: "Intel Core i5 14100, Intel UHD Graphics 730, DDR4 16GB, SSD 512GB", price: "₽50 000", modalImg: "/images/Sred_large.png" },
-        { img: "/images/Prem.png", name: "Дом", desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", price: "₽70 000", modalImg: "/images/Prem_large.png" },
-        { img: "/images/Eco.png", name: "Игры v1.0", desc: "Intel Core i3 14100f, RTX 5050 8GB, DDR4 16GB, SSD 512GB", price: "₽100 000", modalImg: "/images/Eco_large.png" },
-        { img: "/images/Sred.png", name: "Игры v2.0", desc: "Intel Core i3 14100f, RTX 5050 8GB, DDR4 16GB, SSD 512GB", price: "₽130 000", modalImg: "/images/Sred_large.png" },
-        { img: "/images/Prem.png", name: "Игры v3.0", desc: "Intel Core i3 14100f, RTX 5050 8GB, DDR4 16GB, SSD 512GB", price: "₽180 000", modalImg: "/images/Prem_large.png" },
-      ].map((b, i) => (
-        <SwiperSlide key={i}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.2 }}
-            className="relative w-full bg-white/10 backdrop-blur-lg rounded-3xl shadow-lg overflow-hidden cursor-pointer group border border-white/20"
+          {/* Swiper */}
+          <Swiper
+            modules={[Navigation, Pagination]}
+            spaceBetween={24}
+            navigation
+            pagination={{ clickable: true }}
+            breakpoints={{
+              320: { slidesPerView: 1 },
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
           >
-            {/* Картинка */}
-            <div className="relative w-full h-64 overflow-hidden rounded-t-3xl">
-              <img
-                src={b.img}
-                alt={b.name}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:brightness-110"
-              />
-            </div>
+            {builds.map((b, i) => (
+              <SwiperSlide key={i}>
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: i*0.2 }}
+                  className="relative w-full bg-white/10 backdrop-blur-lg rounded-3xl shadow-lg overflow-hidden cursor-pointer group border border-white/20"
+                >
+                  <div className="relative w-full h-64 overflow-hidden rounded-t-3xl">
+                    <img src={b.img} alt={b.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:brightness-110" />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold mb-2 text-cyan-300">{b.name}</h3>
+                    <p className="text-gray-300 mb-2">{b.desc.split(", ").map((item, idx) => (<span key={idx}>{item}<br /></span>))}</p>
+                    <p className="text-lg font-bold text-white">{b.price}</p>
+                    <button onClick={() => setActiveBuild(b)} className="mt-4 w-full bg-white/20 backdrop-blur-lg hover:bg-cyan-500/30 text-white py-3 rounded-xl font-semibold shadow-lg transition hover:scale-105">
+                      Подробнее
+                    </button>
+                  </div>
+                </motion.div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
-            {/* Текст */}
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2 text-cyan-300">{b.name}</h3>
-              <p className="text-gray-300 mb-2">
-                {b.desc.split(", ").map((item, idx) => (
-                  <span key={idx}>
-                    {item}
-                    <br />
-                  </span>
-                ))}
-              </p>
-              <p className="text-lg font-bold text-white">{b.price}</p>
-              
-              {/* Кнопка Подробнее */}
-              <button
-                onClick={() => setActiveBuild(b)}
-                className="mt-4 w-full bg-white/20 backdrop-blur-lg hover:bg-cyan-500/30 text-white py-3 rounded-xl font-semibold shadow-lg transition hover:scale-105"
-              >
-                Подробнее
-              </button>
-            </div>
-          </motion.div>
-        </SwiperSlide>
-      ))}
-    </Swiper>
-
-    {/* Модальное окно */}
-    <BuildModal build={activeBuild} onClose={() => setActiveBuild(null)} />
-  </div>
-</section>
+          {/* Build Modal */}
+          <BuildModal build={activeBuild} onClose={() => setActiveBuild(null)} />
+        </div>
+      </section>
 
        {/* УСЛУГИ */}
 <section id="services" className="max-w-7xl mx-auto pt-21 pb-21 px-6">
@@ -539,15 +470,11 @@ hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
         <h2 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
           Местоположение
         </h2>
-        <div
-          ref={mapRef}
-          className="w-full h-96 rounded-2xl overflow-hidden shadow-lg border border-white/20"
-        />
+        <div ref={mapRef} className="w-full h-96 rounded-2xl overflow-hidden shadow-lg border border-white/20" />
         <p className="mt-4 text-center text-lg font-medium text-white/90">
-    г. Санк-Петербург, Суздальское шоссе 28к2
-  </p>
+          г. Санкт-Петербург, Суздальское шоссе 28к2
+        </p>
       </section>
-
     </div>
   );
 }
