@@ -29,6 +29,7 @@ const reviews = [
 
 export default function Page() {
   const mapRef = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   type Build = {
     img: string;
@@ -90,23 +91,49 @@ export default function Page() {
               ITMaster
             </a>
           </div>
-          <nav className="space-x-6">
-            {["Главная", "Сборка", "Услуги", "Отзывы", "Компания"].map((name, i) => (
-              <a key={i} href={`#${name.toLowerCase()}`} className="relative text-white transition duration-300 hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,255,255,0.8)]
-                after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-full"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (name === "Главная") window.scrollTo({ top: 0, behavior: "smooth" });
-                  else {
-                    const section = document.getElementById(name.toLowerCase());
-                    section?.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-              >
-                {name}
-              </a>
-            ))}
-          </nav>
+          <nav className="space-x-6 flex items-center">
+  {[
+    { name: "Главная", link: "#" },
+    { name: "Сборка", link: "#catalog" },
+    { name: "Услуги", link: "#services" },
+    { name: "Отзывы", link: "#clients" },
+    { name: "Карта", link: "#maps" }
+  ].map((item, i) => (
+    <a
+      key={i}
+      href={item.link}
+      className="relative text-white transition duration-300 hover:text-cyan-400
+                 hover:drop-shadow-[0_0_8px_rgba(0,255,255,0.8)]
+                 after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-full"
+      onClick={(e) => {
+        e.preventDefault();
+
+        // закрываем мобильное меню, если оно открыто
+        if (typeof setMenuOpen === "function") setMenuOpen(false);
+
+        // прокрутка к секции
+        let sectionId = "";
+        switch (item.name) {
+          case "Главная": sectionId = ""; break;
+          case "Сборка": sectionId = "catalog"; break;
+          case "Услуги": sectionId = "services"; break;
+          case "Отзывы": sectionId = "clients"; break;
+          case "Карта": sectionId = "maps"; break;
+        }
+
+        if (sectionId) {
+          const section = document.getElementById(sectionId);
+          if (section) section.scrollIntoView({ behavior: "smooth" });
+        } else {
+          // Главная — скроллим наверх
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }}
+    >
+      {item.name}
+    </a>
+  ))}
+</nav>
         </div>
       </header>
 
@@ -254,7 +281,7 @@ export default function Page() {
 </section>
 
       {/* ОТЗЫВЫ */}
-      <section className="max-w-7xl mx-auto pt-5 pb-21 px-6 ">
+      <section id="clients" className="max-w-7xl mx-auto pt-5 pb-21 px-6 ">
         <div className="max-w-7xl mx-auto backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl py-6 mb-16 shadow-lg">
           <div className="px-6">
             <h2 className="text-3xl font-bold text-center bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
@@ -469,7 +496,7 @@ export default function Page() {
       </section>
 
       {/* МЕСТОПОЛОЖЕНИЕ с Яндекс.Картой */}
-      <section className="max-w-7xl mx-auto pt-0 pb-25 px-6 relative">
+      <section id="maps" className="max-w-7xl mx-auto pt-0 pb-25 px-6 relative">
         <h2 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
           Местоположение
         </h2>
