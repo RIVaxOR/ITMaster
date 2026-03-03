@@ -86,29 +86,36 @@ export default function Page() {
       <Header />
 
       {/* HERO */}
-      <section className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 pt-36 pb-21 px-6">
-        <div className="flex-1">
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-6xl font-extrabold mb-4 text-white">
-            Сборка ПК<br /> на заказ
-          </motion.h1>
-          <p className="text-gray-300 text-lg mb-6">
-            Сборки для любых задач — от работы до топовых игр. Аккуратный кабель-менеджмент, стресс-тесты и гарантия качества.
-          </p>
-          <a href="https://t.me/RIVaxOR" target="_blank" rel="noopener noreferrer">
-            <button className="relative px-8 py-4 rounded-xl font-semibold text-white overflow-hidden
-              bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
-              hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
-              <span className="relative z-10">Написать в Telegram</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300"></div>
-            </button>
-          </a>
-        </div>
-        <div className="flex-1">
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl h-80 overflow-hidden shadow-lg border border-white/20">
-            <HeroImageSlider />
-          </div>
-        </div>
-      </section>
+      <section className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12 pt-36 pb-21 px-6">
+  {/* Левый блок: текст и кнопка */}
+  <div className="flex-1 w-full text-center md:text-left">
+    <motion.h1
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 text-white leading-snug"
+    >
+      Сборка ПК<br /> на заказ
+    </motion.h1>
+    <p className="text-gray-300 text-base sm:text-lg mb-6">
+      Сборки для любых задач — от работы до топовых игр. Аккуратный кабель-менеджмент, стресс-тесты и гарантия качества.
+    </p>
+    <a href="https://t.me/RIVaxOR" target="_blank" rel="noopener noreferrer">
+      <button className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold text-white overflow-hidden
+        bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
+        hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]">
+        <span className="relative z-10">Написать в Telegram</span>
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300 rounded-xl"></div>
+      </button>
+    </a>
+  </div>
+
+  {/* Правый блок: слайдер */}
+  <div className="flex-1 w-full">
+    <div className="bg-white/10 backdrop-blur-lg rounded-3xl h-64 sm:h-72 md:h-80 overflow-hidden shadow-lg border border-white/20">
+      <HeroImageSlider />
+    </div>
+  </div>
+</section>
 
       {/* CATALOG */}
       <section id="catalog" className="bg-gray-800/50 relative max-w-full pt-21 pb-21 px-6">
