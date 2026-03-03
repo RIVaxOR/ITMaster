@@ -44,6 +44,9 @@ export default function Page() {
     { img: "/images/Eco.png", name: "Бюджет", desc: "Intel Core i3-12100, Intel UHD Graphics 730, DDR4 8GB, SSD 256GB", price: "₽30 000", modalImg: "/images/Eco_large.png" },
     { img: "/images/Sred.png", name: "Офис", desc: "Intel Core i5 14100, Intel UHD Graphics 730, DDR4 16GB, SSD 512GB", price: "₽50 000", modalImg: "/images/Sred_large.png" },
     { img: "/images/Prem.png", name: "Дом", desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", price: "₽70 000", modalImg: "/images/Prem_large.png" },
+    { img: "/images/Prem.png", name: "Дом", desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", price: "₽70 000", modalImg: "/images/Prem_large.png" },
+    { img: "/images/Prem.png", name: "Дом", desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", price: "₽70 000", modalImg: "/images/Prem_large.png" },
+    { img: "/images/Prem.png", name: "Дом", desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", price: "₽70 000", modalImg: "/images/Prem_large.png" },
   ];
 
   // ЗАГРУЗКА Яндекс.Карты
