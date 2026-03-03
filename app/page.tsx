@@ -336,12 +336,12 @@ export default function Page() {
   <SwiperSlide>
   <div className="grid grid-cols-4 gap-1 auto-flow-dense">
     {[
-      { img: "/images/Sq 1.jpg", type: "square" },
-      { img: "/images/Ver 1.jpg", type: "vertical" },
-      { img: "/images/Gor 1.jpg", type: "horizontal" },
-      { img: "/images/Sq 2.jpg", type: "square" },
-      { img: "/images/Sq 3.jpg", type: "square" },
-      { img: "/images/Sq 4.jpg", type: "square" },
+      { img: "/images/Sq 5.jpg", type: "square" },
+      { img: "/images/Ver 2.jpg", type: "vertical" },
+      { img: "/images/Gor 2.jpg", type: "horizontal" },
+      { img: "/images/Sq 6.jpg", type: "square" },
+      { img: "/images/Sq 7.jpg", type: "square" },
+      { img: "/images/Sq 8.jpg", type: "square" },
     ].map((item, i) => {
       let classNames =
         "group relative overflow-hidden rounded-2xl border border-cyan-500/20 hover:border-cyan-400 transition duration-300 shadow-lg";
