@@ -111,7 +111,8 @@ export default function Page() {
 
   {/* Правый блок: слайдер */}
   <div className="flex-1 w-full">
-    <div className="bg-white/10 backdrop-blur-lg rounded-3xl h-64 sm:h-72 md:h-80 overflow-hidden shadow-lg border border-white/20">
+    <div className="bg-white/10 backdrop-blur-lg rounded-3xl overflow-hidden shadow-lg border border-white/20">
+      {/* Сама карточка теперь не имеет фиксированной высоты, а HeroImageSlider внутри с aspect-[16/9] */}
       <HeroImageSlider />
     </div>
   </div>
