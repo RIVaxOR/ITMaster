@@ -33,23 +33,66 @@ export default function Page() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   type Build = {
-    img: string;
-    name: string;
-    desc: string;
-    price: string;
-    modalImg?: string;
-  };
+  img: string;
+  name: string;
+  desc: string;
+  price: string;
+  modalImg?: string;   // изображение в модальном окне
+  fullDesc?: string;   // расширенное описание
+};
 
   const [activeBuild, setActiveBuild] = useState<Build | null>(null);
 
   const builds: Build[] = [
-    { img: "/images/Eco.png", name: "Бюджет", desc: "Intel Core i3-12100, Intel UHD Graphics 730, DDR4 8GB, SSD 256GB", price: "₽30 000", modalImg: "/images/Eco_large.png" },
-    { img: "/images/Sred.png", name: "Офис", desc: "Intel Core i5 14100, Intel UHD Graphics 730, DDR4 16GB, SSD 512GB", price: "₽50 000", modalImg: "/images/Sred_large.png" },
-    { img: "/images/Prem.png", name: "Дом", desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", price: "₽70 000", modalImg: "/images/Prem_large.png" },
-    { img: "/images/Prem.png", name: "Дом", desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", price: "₽70 000", modalImg: "/images/Prem_large.png" },
-    { img: "/images/Prem.png", name: "Дом", desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", price: "₽70 000", modalImg: "/images/Prem_large.png" },
-    { img: "/images/Prem.png", name: "Дом", desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", price: "₽70 000", modalImg: "/images/Prem_large.png" },
-  ];
+  { 
+    img: "/images/Eco.png", 
+    name: "Бюджет", 
+    desc: "AMD Ryzen 3 3200G, AMD Radeon Vega 8, DDR4 8GB, SSD 256GB", 
+    price: "₽30 000", 
+    modalImg: "/images/Eco_large.png",
+    fullDesc: "Процессор AMD Ryzen 3 3200G с интегрированной графикой Vega 8 идеально подходит для базовых офисных задач, серфинга в интернете и лёгких игр. 8 ГБ DDR4 обеспечивают стабильную работу нескольких приложений одновременно. SSD 256 ГБ позволяет быстро загружать систему и программы. Кабель-менеджмент аккуратный, гарантия на комплектующие включена."
+  },
+  { 
+    img: "/images/Sred.png", 
+    name: "Офис", 
+    desc: "Intel Core i5 14100, Intel UHD Graphics 730, DDR4 16GB, SSD 512GB", 
+    price: "₽50 000", 
+    modalImg: "/images/Sred_large.png",
+    fullDesc: "Мощный офисный ПК на базе Intel Core i5 14100 с интегрированной графикой Intel UHD 730 идеально подходит для многозадачности, работы с документами, таблицами и лёгкого монтажа видео. 16 ГБ оперативной памяти DDR4 обеспечивают плавную работу при одновременном запуске нескольких приложений. SSD 512 ГБ позволяет быстро загружать систему и сохранять большие файлы. Аккуратный кабель-менеджмент и расширенная гарантия."
+  },
+  { 
+    img: "/images/Prem.png", 
+    name: "Дом", 
+    desc: "Intel Core i7-12700KF, RTX 4060, DDR5 16GB, SSD 1024GB", 
+    price: "₽70 000", 
+    modalImg: "/images/Prem_large.png",
+    fullDesc: "Премиальная сборка для дома и игр: Intel Core i7-12700KF, видеокарта RTX 4060, 16 ГБ DDR5, SSD 1 ТБ. Подходит для AAA-игр, монтажа видео и 3D-моделирования. Кабель-менеджмент выполнен аккуратно, система стресс-тестирована для стабильной работы. Предусмотрена расширенная гарантия и настройка под потребности пользователя."
+  },
+  { 
+    img: "/images/Prem.png", 
+    name: "Дом Pro", 
+    desc: "Intel Core i7-12700KF, RTX 4070, DDR5 32GB, SSD 2048GB", 
+    price: "₽100 000", 
+    modalImg: "/images/Prem_large.png",
+    fullDesc: "Профессиональная сборка для геймеров и контент-креаторов: Intel Core i7-12700KF, RTX 4070, 32 ГБ DDR5, SSD 2 ТБ. Отлично справляется с тяжёлыми играми, потоковой трансляцией и монтажом видео в 4K. Кабель-менеджмент на высшем уровне, система полностью стресс-тестирована. В комплект включена расширенная гарантия и оптимизация под пользователя."
+  },
+  { 
+    img: "/images/Prem.png", 
+    name: "Геймер", 
+    desc: "AMD Ryzen 7 7800X3D, RTX 4080, DDR5 32GB, SSD 2048GB", 
+    price: "₽150 000", 
+    modalImg: "/images/Prem_large.png",
+    fullDesc: "Игровая станция премиум-класса: AMD Ryzen 7 7800X3D, RTX 4080, 32 ГБ DDR5, SSD 2 ТБ. Максимальная производительность в современных AAA-играх, поддержка VR и 3D-рендеринга. Кабель-менеджмент выполнен идеально, каждый компонент протестирован. Предусмотрена расширенная гарантия и настройка системы под геймера."
+  },
+  { 
+    img: "/images/Prem.png", 
+    name: "Творческая", 
+    desc: "Intel Core i9-13900K, RTX 4090, DDR5 64GB, SSD 4096GB", 
+    price: "₽250 000", 
+    modalImg: "/images/Prem_large.png",
+    fullDesc: "Супер-производительная сборка для творческих задач: Intel Core i9-13900K, RTX 4090, 64 ГБ DDR5, SSD 4 ТБ. Идеально для 3D-рендеринга, видео в 8K, моделирования и научных вычислений. Кабель-менеджмент идеален, система полностью протестирована. В комплекте расширенная гарантия и индивидуальная настройка под профессиональные задачи."
+  },
+];
 
   // ЗАГРУЗКА Яндекс.Карты
   useEffect(() => {

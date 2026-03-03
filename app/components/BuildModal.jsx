@@ -64,10 +64,10 @@ export default function BuildModal({ build, onClose }) {
 
         {/* Описание */}
         <div className="text-gray-300 mb-6 space-y-1">
-          {build.desc.split(", ").map((item, i) => (
-            <p key={i}>{item}</p>
-          ))}
-        </div>
+  {(build.fullDesc || build.desc).split(". ").map((item, i) => (
+    <p key={i}>{item.trim()}.</p>
+  ))}
+</div>
 
         {/* Цена */}
         <p className="text-xl md:text-2xl font-bold text-white mb-6">
