@@ -50,7 +50,7 @@ export default function Page() {
     desc: "AMD Ryzen 3 3200G, AMD Radeon Vega 8, DDR4 8GB, SSD 256GB", 
     price: "₽30 000", 
     modalImg: "/images/Eco.jpg",
-    fullDesc: "Процессор AMD Ryzen 3 3200G с интегрированной графикой Vega 8 идеально подходит для базовых офисных задач, серфинга в интернете и лёгких игр. 8 ГБ DDR4 обеспечивают стабильную работу нескольких приложений одновременно. SSD 256 ГБ позволяет быстро загружать систему и программы. Кабель-менеджмент аккуратный, гарантия на комплектующие включена."
+    fullDesc: "Процессор AMD Ryzen 3 3200G с 4-мя ядрами и интегрированной графикой Vega 8 идеально подходит для базовых офисных задач, серфинга в интернете и лёгких игр. 8 ГБ DDR4 обеспечивают стабильную работу нескольких приложений одновременно. SSD 256 ГБ позволяет быстро загружать систему и программы. Кабель-менеджмент аккуратный, гарантия на комплектующие включена."
   },
   { 
     img: "/images/Sred.png", 
@@ -187,8 +187,8 @@ export default function Page() {
           >
             {builds.map((b, i) => (
               <SwiperSlide key={i}>
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: i*0.2 }}
-                  className="relative w-full bg-white/10 backdrop-blur-lg rounded-3xl shadow-lg overflow-hidden cursor-pointer group border border-white/20"
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
+                  className="relative w-full bg-white/10 backdrop-blur-lg rounded-3xl shadow-lg overflow-hidden group border border-white/20"
                 >
                   <div className="relative w-full h-64 overflow-hidden rounded-t-3xl">
                     <img src={b.img} alt={b.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:brightness-110" />
@@ -197,7 +197,7 @@ export default function Page() {
                     <h3 className="text-xl font-semibold mb-2 text-cyan-300">{b.name}</h3>
                     <p className="text-gray-300 mb-2">{b.desc.split(", ").map((item, idx) => (<span key={idx}>{item}<br /></span>))}</p>
                     <p className="text-lg font-bold text-white">{b.price}</p>
-                    <button onClick={() => setActiveBuild(b)} className="mt-4 w-full bg-white/20 backdrop-blur-lg hover:bg-cyan-500/30 text-white py-3 rounded-xl font-semibold shadow-lg transition hover:scale-105">
+                    <button onClick={() => setActiveBuild(b)} className="mt-4 w-full cursor-pointer bg-white/20 backdrop-blur-lg hover:bg-cyan-500/30 text-white py-3 rounded-xl font-semibold shadow-lg transition hover:scale-105">
                       Подробнее
                     </button>
                   </div>
@@ -308,7 +308,7 @@ export default function Page() {
       href="https://uslugi.yandex.ru/search?action=addReview&profile=IgorRakitin-1161268"
       target="_blank"
       rel="noopener noreferrer"
-      className="relative flex items-center justify-center
+      className="cursor-pointer relative flex items-center justify-center
            px-8 py-4 rounded-xl
            font-semibold text-white
            text-center
@@ -425,7 +425,7 @@ export default function Page() {
   <div className="flex flex-wrap justify-center items-center gap-4">
     <button
       onClick={() => window.open("https://t.me/RIVaxOR", "_blank")}
-      className="relative flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-white overflow-hidden
+      className="cursor-pointer relative flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-white overflow-hidden
                  bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
                  hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
     >
@@ -435,7 +435,7 @@ export default function Page() {
 
     <button
       onClick={() => window.open("https://web.max.ru/", "_blank")}
-      className="relative flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-white overflow-hidden
+      className="cursor-pointer relative flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-white overflow-hidden
                  bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
                  hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
     >
@@ -445,7 +445,7 @@ export default function Page() {
 
     <button
       onClick={() => window.open("https://wa.me/79650527375", "_blank")}
-      className="relative flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-white overflow-hidden
+      className="cursor-pointer relative flex items-center px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-white overflow-hidden
                  bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
                  hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
     >
@@ -454,11 +454,11 @@ export default function Page() {
     </button>
   </div>
 
-  {/* Вторая строка: Avito, Яндекс.Услуги */}
+  {/* Вторая строка: Avito, Яндекс.Услуги, VK */}
   <div className="flex flex-wrap justify-center gap-4 mt-4">
     <button
       onClick={() => window.open("https://www.avito.ru/brands/i34771128", "_blank")}
-      className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
+      className="cursor-pointer relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
                  bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
                  hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
     >
@@ -472,9 +472,20 @@ export default function Page() {
                  bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
                  hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
     >
-      <span className="relative z-10">Яндекс.Услуги</span>
+      <span className="relative z-10">Яндекс</span>
       <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300 rounded-xl"></div>
     </button>
+
+    <button
+      onClick={() => window.open("https://vk.com/rivaxor", "_blank")}
+      className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
+                 bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
+                 hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
+    >
+      <span className="relative z-10">VK</span>
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 opacity-0 hover:opacity-20 transition duration-300 rounded-xl"></div>
+    </button>
+
   </div>
 </section>
 

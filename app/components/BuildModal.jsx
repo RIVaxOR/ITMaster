@@ -77,7 +77,7 @@ export default function BuildModal({ build, onClose }) {
         {/* Кнопка */}
         <button
           onClick={() => window.open("https://t.me/RIVaxOR", "_blank")}
-          className="w-full py-3 md:py-4 rounded-xl font-semibold text-white 
+          className="w-full cursor-pointer py-3 md:py-4 rounded-xl font-semibold text-white 
                      bg-cyan-500/20 border border-cyan-400/30
                      backdrop-blur-lg transition-all duration-300
                      hover:bg-cyan-500/40 hover:scale-[1.02]
