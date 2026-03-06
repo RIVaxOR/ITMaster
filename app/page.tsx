@@ -468,7 +468,7 @@ export default function Page() {
 
     <button
       onClick={() => window.open("https://uslugi.yandex.ru/search?action=addReview&profile=IgorRakitin-1161268", "_blank")}
-      className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
+      className="cursor-pointer relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
                  bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
                  hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
     >
@@ -478,7 +478,7 @@ export default function Page() {
 
     <button
       onClick={() => window.open("https://vk.com/rivaxor", "_blank")}
-      className="relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
+      className="cursor-pointer relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white overflow-hidden
                  bg-cyan-500/20 border border-cyan-400/40 shadow-lg transition-all duration-300
                  hover:scale-105 hover:shadow-[0_0_25px_rgba(0,255,255,0.8)]"
     >
